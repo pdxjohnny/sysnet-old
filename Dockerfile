@@ -1,4 +1,3 @@
 FROM busybox
-ADD ./build/default_app_name_linux-amd64 /app
+ADD ./default_app_name_linux-386 /app
 CMD ["/app"]
-

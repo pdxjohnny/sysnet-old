@@ -17,13 +17,12 @@ Running
 ---
 
 ```bash
-./build/default_app_name_linux-amd64
-docker run --rm -ti default_app_name
+./default_app_name_linux-amd64
+docker run --rm -ti default_username/default_app_name
 ```
 
 Changing The Name
 ---
-
 
 ```bash
 ./script/change-name $GITHUB_USERNAME $PROJECT_NAME
@@ -31,4 +30,3 @@ Changing The Name
 
 
 - John Andersen
-

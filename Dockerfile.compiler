@@ -13,4 +13,3 @@ ENV USER root
 WORKDIR /go/src/github.com/default_username/default_app_name
 
 ADD . /go/src/github.com/default_username/default_app_name
-

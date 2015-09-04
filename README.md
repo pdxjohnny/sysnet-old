@@ -10,8 +10,11 @@ Building
 ---
 
 ```bash
+go build -o default_app_name_linux-amd64 -tags netgo *.go
+# Or
 ./script/build
 ```
+> `-tags netgo` will help you achieve static binaries :)
 
 Running
 ---

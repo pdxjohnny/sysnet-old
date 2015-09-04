@@ -1,3 +1,8 @@
+Godeps/_workspace
+Godeps/Readme
 build/
+tmp/
+
+bower_components/
 
 default_app_name_*

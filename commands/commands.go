@@ -2,6 +2,8 @@ package commands
 
 import (
 	"github.com/spf13/cobra"
+
+	"github.com/default_username/default_app_name/sample"
 )
 
 var Commands = []*cobra.Command{
@@ -10,7 +12,7 @@ var Commands = []*cobra.Command{
 		Short: "Sample command",
 		Run: func(cmd *cobra.Command, args []string) {
 			ConfigBindFlags(cmd)
-			// sample.Run()
+			sample.Run()
 		},
 	},
 }

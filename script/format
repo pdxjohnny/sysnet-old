@@ -1,4 +1,3 @@
 #!/bin/bash
 
-gofmt -w *.go
-gofmt -w */*.go
+find ./ -type f -name "*.go" -exec gofmt -w {} \;

@@ -1,4 +1,4 @@
-FROM default_username/gox
+FROM pdxjohnny/gox
 
 ENV GOPATH /go/src/github.com/default_username/default_app_name/Godeps/_workspace:/go
 

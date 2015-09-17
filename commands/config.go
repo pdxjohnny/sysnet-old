@@ -5,10 +5,14 @@ import (
 	"github.com/spf13/viper"
 )
 
+var FlagsSet map[string]bool = nil
+
 func ConfigDefaults(cmdList ...*cobra.Command) {
+	FlagsSet = make(map[string]bool)
 	ConfigEnv()
 	ConfigSet()
 	ConfigFlags(cmdList...)
+	FlagsSet = nil
 }
 
 func ConfigSet() {
@@ -31,25 +35,40 @@ func SetDefault(flagMap map[string]interface{}) {
 
 func ConfigFlags(cmdList ...*cobra.Command) {
 	for _, cmd := range cmdList {
-		CheckFlags(cmd, ConfigOptions[cmd.Use].(map[string]interface{}))
-	}
-}
-
-func CheckFlags(cmd *cobra.Command, flagMap map[string]interface{}) {
-	for index, item := range flagMap {
-		switch opt := item.(type) {
-		case map[string]interface{}:
-			_, ok := opt["help"]
-			if !ok {
-				CheckFlags(cmd, opt)
-				continue
-			}
-			BindFlags(cmd, index, opt)
+		for index, item := range ConfigOptions[cmd.Use].(map[string]interface{}) {
+			BindFlags(cmd, index, item.(map[string]interface{}))
 		}
 	}
 }
 
-func BindFlags(cmd *cobra.Command, name string, opt map[string]interface{}) {
+func BindFlags(cmd *cobra.Command, name string, flagMap map[string]interface{}) {
+	// If this has a help then dont go deeper
+	_, ok := flagMap["help"]
+	if ok {
+		SetBindFlags(cmd, name, flagMap)
+		return
+	}
+	// Otherwise go deeper
+	for index, item := range flagMap {
+		opt := item.(map[string]interface{})
+		_, ok := opt["help"]
+		if !ok {
+			BindFlags(cmd, index, opt)
+			continue
+		}
+		SetBindFlags(cmd, index, opt)
+	}
+}
+
+func SetBindFlags(cmd *cobra.Command, name string, opt map[string]interface{}) {
+	// Make sure the flag hasnt been set already
+	_, ok := FlagsSet[name]
+	if ok {
+		// Already set
+		return
+	}
+	// Mark as set
+	FlagsSet[name] = true
 	help := opt["help"].(string)
 	switch value := opt["value"].(type) {
 	case int:

@@ -2,7 +2,7 @@
 
 KEYDIR="keys"
 
-DIR=$(pwd `dirname ..` | sed 's#/# #g' | awk '{print $2}')
+DIR=$(pwd | sed 's#/# #g' | awk '{print $(NF)}')
 DIRPATH="${KEYDIR}/${DIR}"
 rm -rf ${DIRPATH}
 mkdir -pv ${DIRPATH}

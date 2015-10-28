@@ -1,5 +1,5 @@
 {
-	"ImportPath": "github.com/default_username/default_app_name",
+	"ImportPath": "github.com/pdxjohnny/sysnet",
 	"GoVersion": "go1.5",
 	"Packages": [
 		"./..."

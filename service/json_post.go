@@ -1,13 +1,17 @@
 package service
 
-import "encoding/json"
+import (
+	"encoding/json"
+	"net/http"
+)
 
-func DecodeJSON() {
-	w.Header().Set("Content-Type", "application/json")
-	var result map[string]string
+// DecodeJSON creates an interface and decodes into it
+func DecodeJSON(r *http.Request) (interface{}, error) {
+	var result interface{}
 	decoder := json.NewDecoder(r.Body)
 	err := decoder.Decode(&result)
 	if err != nil {
-		panic(err)
+		return nil, err
 	}
+	return err, nil
 }

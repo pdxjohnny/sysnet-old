@@ -18,5 +18,9 @@ var ConfigOptions = map[string]interface{}{
 			"value": "keys/discovery/key.pem",
 			"help":  "Key for https server",
 		},
+		"password": map[string]interface{}{
+			"value": "password",
+			"help":  "Password to become a node",
+		},
 	},
 }

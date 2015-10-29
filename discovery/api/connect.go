@@ -1,14 +1,13 @@
 package api
 
 import (
-	"fmt"
 	"log"
 	"net/http"
 )
 
-// ConnectStream takes a conenction and tells us when it disconnects
+// ConnectStream takes a connection and tells us when it disconnects
 func ConnectStream(w http.ResponseWriter, r *http.Request) {
-	f, ok := w.(http.Flusher)
+	_, ok := w.(http.Flusher)
 	if !ok {
 		http.Error(w, "Cannot stream", http.StatusInternalServerError)
 		return
@@ -29,9 +28,6 @@ func ConnectStream(w http.ResponseWriter, r *http.Request) {
 		case <-closed.CloseNotify():
 			log.Println("Done: closed connection")
 			return
-		case msg := <-messages:
-			fmt.Fprintf(w, "data: %s\n\n", msg)
-			f.Flush()
 		}
 	}
 }
